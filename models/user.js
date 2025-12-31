@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
   username: {
@@ -10,7 +10,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-});
+})
+
+userSchema.set('toJSON', { transform: (document, returnedObject) => { delete returnedObject.password }})
 
 const User = mongoose.model('User', userSchema);
 
