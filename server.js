@@ -5,6 +5,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const app = express();
 const jwtCtrl = require('./controllers/jwt')
+const PORT = process.env.PORT || 4000
 
 try {
     mongoose.connect(process.env.MONGODB_URI);
@@ -26,5 +27,4 @@ app.use('/jwt', jwtCtrl)
 
 
 
-
-app.listen(3000, () => console.log('Listining on port 3000'))
+app.listen(PORT, () => console.log('Listining on port 3000'))
