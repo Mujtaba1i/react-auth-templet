@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const logger = require('morgan');
 const app = express();
+const jwtCtrl = require('./controllers/jwt')
 
 try {
     mongoose.connect(process.env.MONGODB_URI);
@@ -15,8 +16,12 @@ try {
 app.use(cors());
 app.use(express.json())
 app.use(logger('dev'))
+app.use('/jwt', jwtCtrl)
 
 // Routes go here
+
+
+
 
 
 
