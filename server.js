@@ -35,6 +35,7 @@ app.use('/auth', authCtrl)
 app.use(verifyToken)
 
 app.get('/test', (req,res)=>{
+    console.log(req.user.username)
     res.status(200).json({msg: 'Loggedin'})
 })
 
