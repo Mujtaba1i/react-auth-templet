@@ -33,6 +33,7 @@ app.use('/auth', authCtrl)
 
 // Protected Routes
 app.use(verifyToken)
+
 app.get('/test', (req,res)=>{
     res.status(200).json({msg: 'Loggedin'})
 })
