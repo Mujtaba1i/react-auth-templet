@@ -5,6 +5,8 @@ const cors = require('cors');
 const logger = require('morgan');
 const app = express();
 const port = process.env.PORT || 4000
+const verifyToken = require('./middleware/verify-token')
+
 
 // Controllers ===================================================================================================
 
@@ -30,7 +32,9 @@ app.use('/auth', authCtrl)
 
 
 // Protected Routes
-
-
+app.use(verifyToken)
+app.get('/test', (req,res)=>{
+    res.status(200).json({msg: 'Loggedin'})
+})
 
 app.listen(port, () => console.log('Listining on port 3000'))

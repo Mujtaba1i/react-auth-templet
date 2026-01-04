@@ -24,20 +24,23 @@ router.post('/sign-up', async (req, res) => {
   }
 })
 
-// router.post('/sign-in', async (req, res) => {
-//   try {
-//     const { username, password } = req.body
-//     const userInDatabase = await User.findOne({ username });
-//     const isValidPassword = bcrypt.compareSync(password, userInDatabase.password)
+router.post('/sign-in', async (req, res) => {
+  try {
+    const { username, password } = req.body
+    const userInDatabase = await User.findOne({ username });
+    const isValidPassword = bcrypt.compareSync(password, userInDatabase.password)
     
-//     if (!userInDatabase) return res.status(500).json({err:'Username or Password is invalid'})
-//     if (!isValidPassword) return res.status(500).json({err:'Username or Password is invalid'})
+    if (!userInDatabase) return res.status(401).json({err:'Username or Password is invalid'})
+    if (!isValidPassword) return res.status(401).json({err:'Username or Password is invalid'})
     
+    const payload = { username: userInDatabase.username, _id: userInDatabase._id }
+    const token = jwt.sign({payload}, process.env.JWT_SECRET)
+    res.status(200).json({token})
 
-//   } catch (err) {
-//     console.error(err)
-//     res.status(500).json({err:err.message})
-//   }
-// })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({err:err.message})
+  }
+})
 
 module.exports = router
